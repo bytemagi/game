@@ -62,6 +62,14 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    attack_rect = player.inflate(20, 20)
+                    for enemy in enemies[:]:
+                        if attack_rect.colliderect(enemy.rect):
+                            enemy.hp -= 10
+                            if enemy.hp <= 0:
+                                enemies.remove(enemy)
 
         keys = pygame.key.get_pressed()
         dx = dy = 0
@@ -69,7 +77,6 @@ def main():
         if keys[pygame.K_RIGHT]: dx =  PLAYER_SPEED
         if keys[pygame.K_UP]:    dy = -PLAYER_SPEED
         if keys[pygame.K_DOWN]:  dy =  PLAYER_SPEED
-
         player.x += dx
         if collides_with_wall(player, dungeon.tiles, dungeon.map_width, dungeon.map_height):
             player.x -= dx
@@ -97,6 +104,7 @@ def main():
             enemy.draw(screen, camera_x, camera_y)
 
         screen.blit(player_sprite, (player.x - camera_x, player.y - camera_y))
+
 
         draw_player_hp(screen, player_hp, PLAYER_HP)
 
