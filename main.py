@@ -6,8 +6,8 @@ from fov import compute_fov
 import sprites
 import tileset
 
-SCREEN_WIDTH  = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH  = 1280
+SCREEN_HEIGHT = 720
 TILE_SIZE     = 32
 FPS           = 60
 FOV_RADIUS    = 8
@@ -25,6 +25,7 @@ MINIMAP_Y = 10
 
 def make_level(floor=1):
     dungeon = Dungeon(50, 40)
+    tileset.set_theme(tileset.theme_for_floor(floor))
     enemies = []
     for room in dungeon.rooms[1:]:
         cx, cy = room.center()

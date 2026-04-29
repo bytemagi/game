@@ -3,57 +3,53 @@ import random
 
 TILE_SIZE = 32
 
-# All available monster types by filename (Icon42 missing from assets)
+# name, sprite file, hp, attack, aggro
 ENEMY_TYPES = [
-    # name,      sprite,    hp, attack, aggro
-    ("Icon0",  "Icon0.png",  10,  3,  6),
-    ("Icon1",  "Icon1.png",  12,  3,  6),
-    ("Icon2",  "Icon2.png",  14,  4,  6),
-    ("Icon3",  "Icon3.png",  14,  4,  7),
-    ("Icon4",  "Icon4.png",  16,  4,  7),
-    ("Icon5",  "Icon5.png",  16,  5,  7),
-    ("Icon6",  "Icon6.png",  18,  5,  7),
-    ("Icon7",  "Icon7.png",  18,  5,  8),
-    ("Icon8",  "Icon8.png",  20,  5,  8),
-    ("Icon9",  "Icon9.png",  20,  6,  8),
-    ("Icon10", "Icon10.png", 22,  6,  8),
-    ("Icon11", "Icon11.png", 22,  6,  8),
-    ("Icon12", "Icon12.png", 24,  6,  8),
-    ("Icon13", "Icon13.png", 24,  7,  8),
-    ("Icon14", "Icon14.png", 26,  7,  8),
-    ("Icon15", "Icon15.png", 26,  7,  9),
-    ("Icon16", "Icon16.png", 28,  7,  9),
-    ("Icon17", "Icon17.png", 28,  8,  9),
-    ("Icon18", "Icon18.png", 30,  8,  9),
-    ("Icon19", "Icon19.png", 30,  8,  9),
-    ("Icon20", "Icon20.png", 32,  8,  9),
-    ("Icon21", "Icon21.png", 32,  9,  9),
-    ("Icon22", "Icon22.png", 34,  9,  9),
-    ("Icon23", "Icon23.png", 34,  9,  9),
-    ("Icon24", "Icon24.png", 36,  9, 10),
-    ("Icon25", "Icon25.png", 36, 10, 10),
-    ("Icon26", "Icon26.png", 38, 10, 10),
-    ("Icon27", "Icon27.png", 38, 10, 10),
-    ("Icon28", "Icon28.png", 40, 10, 10),
-    ("Icon29", "Icon29.png", 40, 11, 10),
-    ("Icon30", "Icon30.png", 42, 11, 10),
-    ("Icon31", "Icon31.png", 42, 11, 10),
-    ("Icon32", "Icon32.png", 44, 11, 10),
-    ("Icon33", "Icon33.png", 44, 12, 10),
-    ("Icon34", "Icon34.png", 46, 12, 10),
-    ("Icon35", "Icon35.png", 46, 12, 10),
-    ("Icon36", "Icon36.png", 48, 12, 10),
-    ("Icon37", "Icon37.png", 48, 13, 10),
-    ("Icon38", "Icon38.png", 50, 13, 10),
-    ("Icon39", "Icon39.png", 50, 13, 10),
-    ("Icon40", "Icon40.png", 55, 14, 10),
-    ("Icon41", "Icon41.png", 55, 14, 10),
-    ("Icon43", "Icon43.png", 60, 14, 10),
-    ("Icon44", "Icon44.png", 60, 15, 10),
-    ("Icon45", "Icon45.png", 65, 15, 10),
-    ("Icon46", "Icon46.png", 65, 15, 10),
-    ("Icon47", "Icon47.png", 70, 16, 10),
-    ("Icon48", "Icon48.png", 70, 16, 10),
+    ("Fat Mushroom",      "fat_mushroom_enemy3.png",      10,  3, 5),
+    ("Mushdino",          "mushdino_enemy4.png",           12,  3, 5),
+    ("Topeye Shroom",     "topeye_shroom_enemy5.png",      12,  4, 6),
+    ("Sad Shroom",        "sadshroom_enemy6.png",          14,  4, 6),
+    ("Savage Shroom",     "savageshroom_enemy7.png",       14,  4, 6),
+    ("Rose Monster",      "rose_monster_enemy8.png",       16,  5, 6),
+    ("Scorpio Shroom",    "scorpioshroom_enemy9.png",      16,  5, 6),
+    ("Crab Shroom",       "crabshroom_enemy10.png",        18,  5, 7),
+    ("Maroloboro",        "maroloboro_enemy11.png",        18,  5, 7),
+    ("Vine Whip",         "vinewhip_enemy12.png",          20,  6, 7),
+    ("Bluestar Plant",    "bluestar_plant_enemy13.png",    20,  6, 7),
+    ("Lava Crab",         "lavacrab_enemy14.png",          22,  6, 7),
+    ("Mad Onion",         "madonion_enemy15.png",          22,  7, 7),
+    ("Pump Spike",        "pumpspike_enemy16.png",         24,  7, 7),
+    ("Gay Bulb",          "gaybulb_enemy17.png",           24,  7, 8),
+    ("Mane Flower",       "maneflower_enemy18.png",        26,  7, 8),
+    ("Hyabusabiskis",     "hyabusabiskis_enemy19.png",     26,  8, 8),
+    ("Crack Plant",       "crackplant_enemy20.png",        28,  8, 8),
+    ("Shy Slime",         "shyslime_enemy21.png",          28,  8, 8),
+    ("Savage Slime",      "savageslime_enemy22.png",       30,  8, 8),
+    ("Gay Blobs",         "gayblobs_enemy23.png",          30,  9, 8),
+    ("Hungry Slime",      "hungryslime_enemy24.png",       32,  9, 8),
+    ("Spood Beast",       "spood_beast_enemy25.png",       32,  9, 9),
+    ("Taytos",            "taytos_enemy26.png",            34,  9, 9),
+    ("Melty",             "melty_enemy27.png",             34, 10, 9),
+    ("Sad Sac",           "sadsac_enemy28.png",            36, 10, 9),
+    ("Gay Plant",         "gayplant_enemy29.png",          36, 10, 9),
+    ("Cactus",            "cactus_enemy30.png",            38, 10, 9),
+    ("Plant Shelder",     "plantshelder_enemy31.png",      38, 11, 9),
+    ("Spike Beast",       "spikebeast_enemy32.png",        40, 11, 9),
+    ("Jackalope",         "jackalope_enemy33.png",         40, 11, 9),
+    ("Garga Pup",         "gargapup_enemy34.png",          42, 11, 9),
+    ("Centisting",        "centisting_enemy35.png",        42, 12, 9),
+    ("Tick",              "tick_enemy36.png",              44, 12, 9),
+    ("Shit Fly",          "shitfly_enemy37.png",           44, 12, 9),
+    ("Batatata",          "batatata_enemy38.png",          46, 12, 9),
+    ("Toadapest",         "toadapest_enemy38.png",         46, 13, 9),
+    ("Mantadantatitis",   "mantadantatitis_enemy39.png",   48, 13, 10),
+    ("Eye Cupoo",         "eyecupoo_enemy40.png",          48, 13, 10),
+    ("Obese Avian",       "obeseavian_enemy41.png",        50, 13, 10),
+    ("Voltarion",         "voltarion_enemy43.png",         55, 14, 10),
+    ("Underpants Gnome",  "underpants_gnome_enemy44.png",  55, 14, 10),
+    ("Pumpkimatoe",       "pumpkimatoe_enemy45.png",       60, 15, 10),
+    ("Obese Rodent",      "obese_rodent_enemy46.png",      60, 15, 10),
+    ("Death Seagull",     "death_seagull_enemy47.png",     65, 16, 10),
 ]
 
 _sprite_cache = {}
@@ -65,7 +61,6 @@ def _load_sprite(filename):
     return _sprite_cache[filename]
 
 def random_enemy_for_floor(tx, ty, floor):
-    # Higher floors unlock stronger enemy types
     max_idx = min(len(ENEMY_TYPES) - 1, (floor - 1) * 5 + random.randint(0, 4))
     min_idx = max(0, max_idx - 6)
     entry = ENEMY_TYPES[random.randint(min_idx, max_idx)]
@@ -74,7 +69,8 @@ def random_enemy_for_floor(tx, ty, floor):
 
 
 class Enemy:
-    def __init__(self, tx, ty, name="Icon0", sprite_file="Icon0.png", hp=10, attack=3, aggro=6):
+    def __init__(self, tx, ty, name="Fat Mushroom", sprite_file="fat_mushroom_enemy3.png",
+                 hp=10, attack=3, aggro=5):
         self.tx = tx
         self.ty = ty
         self.name = name
