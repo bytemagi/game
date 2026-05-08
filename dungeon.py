@@ -43,12 +43,16 @@ class Dungeon:
             self.stair_pos = (sx, sy)
             self.tiles[sy][sx] = "stairs"
 
-    def carve_corridor(self, start, end):
+    def carve_corridor(self, start, end, width=2):
         x1, y1 = start
         x2, y2 = end
-        for col in range(min(x1, x2), max(x1, x2) + 1):
-            if self.tiles[y1][col] == "wall":
-                self.tiles[y1][col] = "floor"
+        for col in range(min(x1, x2), max(x1, x2)):
+            for w in range(width):
+                if 0 <= y1 + w < self.map_height:
+                    self.tiles[y1 + w][col] = "floor"
         for row in range(min(y1, y2), max(y1, y2) + 1):
-            if self.tiles[row][x2] == "wall":
-                self.tiles[row][x2] = "floor"
+            for w in range(width):
+                if 0 <= x2 + w < self.map_width:
+                    self.tiles[row][x2 + w] = "floor"
+    
+                             

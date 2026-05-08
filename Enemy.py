@@ -1,5 +1,8 @@
 import pygame
 import random
+import os
+
+_BASE = os.path.dirname(os.path.abspath(__file__))
 
 TILE_SIZE = 32
 
@@ -53,10 +56,17 @@ ENEMY_TYPES = [
 ]
 
 _sprite_cache = {}
+_font = None
+
+def _get_font():
+    global _font
+    if _font is None:
+        _font = pygame.font.SysFont(None, 12)
+    return _font
 
 def _load_sprite(filename):
     if filename not in _sprite_cache:
-        img = pygame.image.load(f"assets/{filename}").convert_alpha()
+        img = pygame.image.load(os.path.join(_BASE, "assets", filename)).convert_alpha()
         _sprite_cache[filename] = pygame.transform.scale(img, (TILE_SIZE, TILE_SIZE))
     return _sprite_cache[filename]
 
@@ -122,5 +132,5 @@ class Enemy:
         pygame.draw.rect(surface, (100, 0, 0), (px, py - 6, TILE_SIZE, 4))
         pygame.draw.rect(surface, (220, 0, 0), (px, py - 6, int(TILE_SIZE * hp_ratio), 4))
 
-        font = pygame.font.SysFont(None, 12)
+        font = _get_font()
         surface.blit(font.render(self.name, True, (255, 200, 200)), (px, py - 14))

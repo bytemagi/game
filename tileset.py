@@ -1,6 +1,8 @@
 import pygame
 import os
 
+_BASE = os.path.dirname(os.path.abspath(__file__))
+
 EXPLORED_DIM = 0.4
 
 # Floor tiles grouped by theme — swap group used per dungeon floor in main.py
@@ -87,7 +89,7 @@ def theme_for_floor(floor):
 
 def _load(filename):
     if filename not in _cache:
-        path = os.path.join("assets", filename)
+        path = os.path.join(_BASE, "assets", filename)
         img = pygame.image.load(path).convert_alpha()
         _cache[filename] = img
     return _cache[filename]

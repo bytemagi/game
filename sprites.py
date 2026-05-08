@@ -1,6 +1,8 @@
 import pygame
+import os
 
-SHEET_PATH  = "assets/#1 - Transparent Icons.png"
+_BASE = os.path.dirname(os.path.abspath(__file__))
+SHEET_PATH  = os.path.join(_BASE, "assets", "#1 - Transparent Icons.png")
 ICON_SIZE   = 32
 COLS        = 16
 _sheet      = None
